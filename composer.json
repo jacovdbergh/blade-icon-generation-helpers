@@ -1,0 +1,20 @@
+{
+    "name": "codeat3/blade-icon-generation-helpers",
+    "description": "codeat3's helper methods to use in blade-icon generation scripts",
+    "license": "MIT",
+    "require": {
+        "friendsofphp/php-cs-fixer": "^2.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "codeat3/phpcs-styles": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codeat3\\BladeIconGeneration\\": "src"
+        }
+    },
+    "scripts": {
+        "format": "vendor/bin/php-cs-fixer fix"
+    }
+}
