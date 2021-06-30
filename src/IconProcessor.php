@@ -102,11 +102,13 @@ class IconProcessor
             $this->addCustomAttributes($svgEL, $this->config['custom-attributes']);
         }
 
+        $this->svgLine = $this->getSvgAsString();
+
         return $this;
     }
 
-    protected function setSvgAsString() {
-        $this->svgDoc = $this->svgDoc->saveXML();
+    protected function getSvgAsString() {
+        $this->svgLine = $this->svgDoc->saveXML();
     }
 
     protected function getDestinationPath($dir = ''): string
