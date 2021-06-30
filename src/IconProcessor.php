@@ -19,6 +19,7 @@ class IconProcessor
         'height',
         'class',
         'style',
+        'id',
     ];
 
     public function __construct($filepath, $config = [])
