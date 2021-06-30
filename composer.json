@@ -4,7 +4,8 @@
     "license": "MIT",
     "require": {
         "friendsofphp/php-cs-fixer": "^2.0",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^8.0",
+        "renatomarinho/laravel-page-speed": "^2.0"
     },
     "require-dev": {
         "codeat3/phpcs-styles": "dev-main"

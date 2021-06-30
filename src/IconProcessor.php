@@ -4,6 +4,7 @@ namespace Codeat3\BladeIconGeneration;
 
 use DOMDocument;
 use Illuminate\Support\Str;
+use RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace;
 
 class IconProcessor
 {
@@ -40,7 +41,7 @@ class IconProcessor
             rename($this->filepath, $destinationPath);
         }
 
-        $this->svgLine = str_replace(PHP_EOL, '', $this->svgLine);
+        $this->svgLine = $str = (new CollapseWhitespace())->apply($this->svgLine);
         file_put_contents($destinationPath, $this->svgLine);
     }
 
