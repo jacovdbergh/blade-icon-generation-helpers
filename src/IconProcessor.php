@@ -108,7 +108,7 @@ class IconProcessor
     }
 
     protected function getSvgAsString() {
-        $this->svgLine = $this->svgDoc->saveXML();
+        return $this->svgDoc->saveXML();
     }
 
     protected function getDestinationPath($dir = ''): string
