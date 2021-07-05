@@ -87,7 +87,7 @@ class IconProcessor
         }
     }
 
-    public function optimize()
+    public function optimize($callable = null)
     {
         // remove unwanted attributes id, class, width, height
         $svgEL = $this->svgDoc->getElementsByTagName('svg')[0];
@@ -108,6 +108,10 @@ class IconProcessor
             && is_array($this->config['custom-attributes'])
         ) {
             $this->addCustomAttributes($svgEL, $this->config['custom-attributes']);
+        }
+
+        if(is_callable($callable)) {
+            $callable($svgEL);
         }
 
         return $this;
