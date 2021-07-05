@@ -5,6 +5,7 @@ namespace Codeat3\BladeIconGeneration;
 use DOMDocument;
 use Illuminate\Support\Str;
 use RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace;
+use SimpleXMLElement;
 
 class IconProcessor
 {
@@ -30,7 +31,6 @@ class IconProcessor
         $this->config = $config;
 
         $this->svgDoc = new DOMDocument();
-        $this->svgDoc->formatOutput = false;
         $this->svgDoc->load($filepath);
     }
 
@@ -42,7 +42,12 @@ class IconProcessor
             rename($this->filepath, $destinationPath);
         }
 
-        $this->svgLine = $str = (new CollapseWhitespace())->apply($this->svgLine);
+        if($this->svgLine === null) {
+            $this->svgLine = $this->getSvgAsString();
+        }
+
+        $this->svgLine = preg_replace('/\<\?xml.*\?\>/', '', $this->svgLine);
+        $this->svgLine = (new CollapseWhitespace())->apply($this->svgLine);
         file_put_contents($destinationPath, $this->svgLine);
     }
 
@@ -51,8 +56,9 @@ class IconProcessor
         return $this;
     }
 
-    public function postOptimization()
+    public function postOptimizationAsString(callable $callable)
     {
+        $this->svgLine = $callable($this->getSvgAsString());
         return $this;
     }
 
@@ -103,8 +109,6 @@ class IconProcessor
         ) {
             $this->addCustomAttributes($svgEL, $this->config['custom-attributes']);
         }
-
-        $this->svgLine = $this->getSvgAsString();
 
         return $this;
     }
