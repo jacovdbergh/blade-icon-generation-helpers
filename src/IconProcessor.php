@@ -2,6 +2,7 @@
 
 namespace Codeat3\BladeIconGeneration;
 
+use Codeat3\BladeIconGeneration\Exceptions\InvalidFileExtensionException;
 use DOMDocument;
 use Illuminate\Support\Str;
 use RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace;
@@ -30,8 +31,22 @@ class IconProcessor
 
         $this->config = $config;
 
+        $this->checkIfValidFile();
+
         $this->svgDoc = new DOMDocument();
         $this->svgDoc->load($filepath);
+    }
+
+    private function checkIfValidFile() {
+        if (
+            $this->config['blacklisted-ext'] ?? false
+            && is_array($this->config['blacklisted-ext'])
+        ) {
+            if(in_array($this->file->getExtension(), $this->config['blacklisted-ext'])) {
+                throw new InvalidFileExtensionException();
+            }
+        }
+
     }
 
     public function save()
