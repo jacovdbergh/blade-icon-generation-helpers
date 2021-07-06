@@ -49,9 +49,9 @@ class IconProcessor
 
     }
 
-    public function save()
+    public function save($filenameCallable = null)
     {
-        $destinationPath = $this->getDestinationFilePath();
+        $destinationPath = $this->getDestinationFilePath($filenameCallable);
 
         if ($this->filepath !== $destinationPath) {
             rename($this->filepath, $destinationPath);
@@ -156,15 +156,21 @@ class IconProcessor
         return $this->file->getExtension();
     }
 
-    protected function getFileName()
+    protected function getFileName($filenameCallable = null)
     {
-        return $this->file->getBasename('.svg');
+        $name = $this->file->getBasename('.svg');
+
+        if(is_callable($filenameCallable)) {
+            return $filenameCallable($name);
+        }
+
+        return $name;
     }
 
-    public function getDestinationFilePath($suffix = '', $dir = '')
+    public function getDestinationFilePath($filenameCallable = '', $suffix = '', $dir = '')
     {
         return $this->getDestinationPath($dir)
-                .Str::slug($this->getFileName())
+                .Str::slug($this->getFileName($filenameCallable))
                 .$suffix
                 .'.'
                 .$this->getExtension();
