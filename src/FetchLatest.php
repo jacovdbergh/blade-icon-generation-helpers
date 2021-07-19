@@ -52,6 +52,7 @@ class FetchLatest
             'origin/'.$this->getBranchName()
         ], self::CHECKOUT_DIR);
         $process->run();
+        $this->output->writeln($process->getOutput());
 
         $process = new Process([
             'git',
@@ -62,6 +63,7 @@ class FetchLatest
             '--allow-unrelated-histories'
         ], self::CHECKOUT_DIR);
         $process->run();
+        $this->output->writeln($process->getOutput());
     }
 
     private function cloneAndFetch()
@@ -76,6 +78,7 @@ class FetchLatest
             '--initial-branch='.$this->getBranchName(),
         ], self::CHECKOUT_DIR);
         $process->run();
+        $this->output->writeln($process->getOutput());
 
         $process = new Process([
             'git',
@@ -85,6 +88,7 @@ class FetchLatest
             $this->getRepository()
         ], self::CHECKOUT_DIR);
         $process->run();
+        $this->output->writeln($process->getOutput());
 
 
         if ($this->getWhitelistedDir()) {
@@ -95,6 +99,7 @@ class FetchLatest
                 'true',
             ], self::CHECKOUT_DIR);
             $process->run();
+            $this->output->writeln($process->getOutput());
 
             $sparseCheckoutPath = Str::finish(self::CHECKOUT_DIR, DIRECTORY_SEPARATOR). '.git/info/sparse-checkout';
             file_put_contents($sparseCheckoutPath, $this->getWhitelistedDir(), FILE_APPEND);
@@ -108,6 +113,7 @@ class FetchLatest
             $this->getBranchName()
         ], self::CHECKOUT_DIR);
         $process->run();
+        $this->output->writeln($process->getOutput());
     }
 
     public function fetch()
