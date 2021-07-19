@@ -16,15 +16,16 @@ class FetchLatest
 
     const CHECKOUT_DIR = 'dist';
 
-    public function __construct($config)
+    public function __construct($config, $output)
     {
         $this->filesystem = new Filesystem();
         $this->config = $config;
+        $this->output = $output;
     }
 
     public static function create(array $config, $output):self
     {
-        return new self($config);
+        return new self($config, $output);
     }
 
     private function getBranchName()
