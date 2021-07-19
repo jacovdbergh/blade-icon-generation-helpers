@@ -2,18 +2,21 @@
 
 namespace Codeat3\BladeIconGeneration;
 
-use Codeat3\BladeIconGeneration\Exceptions\InvalidFileExtensionException;
 use DOMDocument;
 use Illuminate\Support\Str;
 use RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace;
-use SimpleXMLElement;
+use Codeat3\BladeIconGeneration\Exceptions\InvalidFileExtensionException;
 
 class IconProcessor
 {
     protected $file;
+
     protected $filepath;
+
     protected $svgDoc;
+
     protected $svgLine;
+
     protected $config;
 
     protected $attributesToRemove = [
@@ -37,16 +40,39 @@ class IconProcessor
         $this->svgDoc->load($filepath);
     }
 
-    private function checkIfValidFile() {
+    private function checkIfValidFile()
+    {
         if (
             $this->config['blacklisted-ext'] ?? false
             && is_array($this->config['blacklisted-ext'])
         ) {
-            if(in_array($this->file->getExtension(), $this->config['blacklisted-ext'])) {
+            if (in_array($this->file->getExtension(), $this->config['blacklisted-ext'])) {
                 throw new InvalidFileExtensionException();
             }
         }
 
+        if (
+            $this->config['whitelisted-files'] ?? false
+            && is_array($this->config['whitelisted-files'])
+        ) {
+            if (! in_array(
+                str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()),
+                $this->config['whitelisted-files']
+            )
+            ) {
+                var_dump($this->config['output-suffix']);
+                var_dump($this->file->getBasename());
+                var_dump($this->config['whitelisted-files']);
+                var_dump(str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()));
+                var_dump(! in_array(
+                    str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()),
+                    $this->config['whitelisted-files']
+                ));
+                die('EXCEPTON');
+
+                throw new InvalidFileExtensionException();
+            }
+        }
     }
 
     public function save($filenameCallable = null)
@@ -57,7 +83,7 @@ class IconProcessor
             rename($this->filepath, $destinationPath);
         }
 
-        if($this->svgLine === null) {
+        if ($this->svgLine === null) {
             $this->svgLine = $this->getSvgAsString();
         }
 
@@ -74,6 +100,7 @@ class IconProcessor
     public function postOptimizationAsString(callable $callable)
     {
         $this->svgLine = $callable($this->getSvgAsString());
+
         return $this;
     }
 
@@ -107,7 +134,7 @@ class IconProcessor
         // remove unwanted attributes id, class, width, height
         $svgEL = $this->svgDoc->getElementsByTagName('svg')[0];
 
-        if(is_callable($pre)) {
+        if (is_callable($pre)) {
             $pre($svgEL);
         }
 
@@ -130,14 +157,15 @@ class IconProcessor
             $this->addCustomAttributes($svgEL, $this->config['custom-attributes']);
         }
 
-        if(is_callable($post)) {
+        if (is_callable($post)) {
             $post($svgEL);
         }
 
         return $this;
     }
 
-    protected function getSvgAsString() {
+    protected function getSvgAsString()
+    {
         return $this->svgDoc->saveXML();
     }
 
@@ -160,8 +188,8 @@ class IconProcessor
     {
         $name = $this->file->getBasename('.svg');
 
-        if(is_callable($filenameCallable)) {
-            return $filenameCallable($name);
+        if (is_callable($filenameCallable)) {
+            return $filenameCallable($name, $this->file);
         }
 
         return $name;

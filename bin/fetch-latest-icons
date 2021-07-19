@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+use BladeUI\Icons\Generation\IconGenerator;
+use Codeat3\BladeIconGeneration\FetchLatest;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\SingleCommandApplication as Command;
+
+if (file_exists(__DIR__.'/../vendor/autoload.php')) {
+    require __DIR__.'/../vendor/autoload.php';
+} else {
+    require __DIR__.'/../../../autoload.php';
+}
+
+return (new Command)->setCode(function (InputInterface $input, OutputInterface $output) {
+    $output->writeln("Starting to fetch latest icons...");
+
+    FetchLatest::create(
+        require getcwd().'/config/source.php'
+    )->fetch();
+
+    $output->writeln("Finished fetching latest!");
+
+    return Command::SUCCESS;
+})->run();

@@ -5,7 +5,9 @@
     "require": {
         "friendsofphp/php-cs-fixer": "^2.0",
         "illuminate/support": "^8.0",
-        "renatomarinho/laravel-page-speed": "^2.0"
+        "renatomarinho/laravel-page-speed": "^2.0",
+        "symfony/process": "^5.3",
+        "symfony/filesystem": "^5.3"
     },
     "require-dev": {
         "codeat3/phpcs-styles": "dev-main"
@@ -15,6 +17,9 @@
             "Codeat3\\BladeIconGeneration\\": "src"
         }
     },
+    "bin": [
+        "bin/fetch-latest-icons"
+    ],
     "scripts": {
         "format": "vendor/bin/php-cs-fixer fix"
     }
