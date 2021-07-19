@@ -12,6 +12,7 @@ class FetchLatest
     private Filesystem $filesystem;
 
     private $config;
+    private $output;
 
     const CHECKOUT_DIR = 'dist';
 
@@ -21,7 +22,7 @@ class FetchLatest
         $this->config = $config;
     }
 
-    public static function create(array $config):self
+    public static function create(array $config, $output):self
     {
         return new self($config);
     }
@@ -113,9 +114,13 @@ class FetchLatest
 
         // check if dist exists
         if ($this->filesystem->exists(self::CHECKOUT_DIR)) {
+            $this->output->writeln("Directory found, pulling it now !");
             $this->pullUpdates();
+            $this->output->writeln("Pull Done !");
         } else {
+            $this->output->writeln("Directory not found, clone & fetch !");
             $this->cloneAndFetch();
+            $this->output->writeln("Clone & fetch done !");
         }
     }
 }

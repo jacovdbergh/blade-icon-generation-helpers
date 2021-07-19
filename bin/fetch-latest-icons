@@ -17,7 +17,8 @@ return (new Command)->setCode(function (InputInterface $input, OutputInterface $
     $output->writeln("Starting to fetch latest icons...");
 
     FetchLatest::create(
-        require getcwd().'/config/source.php'
+        require getcwd().'/config/source.php',
+        $output
     )->fetch();
 
     $output->writeln("Finished fetching latest!");
