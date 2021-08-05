@@ -52,27 +52,38 @@ class IconProcessor
         }
 
         if (
-            $this->config['whitelisted-files'] ?? false
-            && is_array($this->config['whitelisted-files'])
+            $this->config['whitelisted-pattern'] ?? false
+            && is_array($this->config['whitelisted-pattern'])
         ) {
-            if (! in_array(
-                str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()),
-                $this->config['whitelisted-files']
-            )
-            ) {
-                var_dump($this->config['output-suffix']);
-                var_dump($this->file->getBasename());
-                var_dump($this->config['whitelisted-files']);
-                var_dump(str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()));
-                var_dump(! in_array(
-                    str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()),
-                    $this->config['whitelisted-files']
-                ));
-                die('EXCEPTON');
-
-                throw new InvalidFileExtensionException();
+            foreach($this->config['whitelisted-pattern'] as $pattern) {
+                if (! preg_match("/".$pattern."/", $this->file->getFilename())) {
+                    throw new InvalidFileExtensionException();
+                }
             }
         }
+
+        // if (
+        //     $this->config['whitelisted-files'] ?? false
+        //     && is_array($this->config['whitelisted-files'])
+        // ) {
+        //     if (! in_array(
+        //         str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()),
+        //         $this->config['whitelisted-files']
+        //     )
+        //     ) {
+        //         var_dump($this->config['output-suffix']);
+        //         var_dump($this->file->getBasename());
+        //         var_dump($this->config['whitelisted-files']);
+        //         var_dump(str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()));
+        //         var_dump(! in_array(
+        //             str_replace($this->config['output-suffix'] ?? '', '', $this->file->getBasename()),
+        //             $this->config['whitelisted-files']
+        //         ));
+        //         die('EXCEPTON');
+
+        //         throw new InvalidFileExtensionException();
+        //     }
+        // }
     }
 
     public function save($filenameCallable = null)
