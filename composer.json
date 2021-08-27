@@ -3,7 +3,6 @@
     "description": "codeat3's helper methods to use in blade-icon generation scripts",
     "license": "MIT",
     "require": {
-        "friendsofphp/php-cs-fixer": "^2.0",
         "illuminate/support": "^8.0",
         "renatomarinho/laravel-page-speed": "^2.0",
         "symfony/process": "^5.3",
