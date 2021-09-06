@@ -4,6 +4,7 @@ namespace Codeat3\BladeIconGeneration;
 
 use DOMDocument;
 use Illuminate\Support\Str;
+use InlineStyle\InlineStyle;
 use RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace;
 use Codeat3\BladeIconGeneration\Exceptions\InvalidFileExtensionException;
 
@@ -55,8 +56,8 @@ class IconProcessor
             $this->config['whitelisted-pattern'] ?? false
             && is_array($this->config['whitelisted-pattern'])
         ) {
-            foreach($this->config['whitelisted-pattern'] as $pattern) {
-                if (! preg_match("/".$pattern."/", $this->file->getFilename())) {
+            foreach ($this->config['whitelisted-pattern'] as $pattern) {
+                if (! preg_match('/'.$pattern.'/', $this->file->getFilename())) {
                     throw new InvalidFileExtensionException();
                 }
             }
@@ -213,5 +214,13 @@ class IconProcessor
                 .$suffix
                 .'.'
                 .$this->getExtension();
+    }
+
+    public function convertStyleToInline()
+    {
+        $htmlDoc = new InlineStyle($this->svgDoc);
+        $htmlDoc->applyStylesheet($htmlDoc->extractStylesheets());
+        $this->svgDoc = $htmlDoc->getDomObject();
+        return $this;
     }
 }

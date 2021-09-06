@@ -12,9 +12,10 @@ class FetchLatest
     private Filesystem $filesystem;
 
     private $config;
+
     private $output;
 
-    const CHECKOUT_DIR = 'dist';
+    public const CHECKOUT_DIR = 'dist';
 
     public function __construct($config, $output)
     {
@@ -90,7 +91,6 @@ class FetchLatest
         $process->run();
         $this->output->writeln($process->getOutput());
 
-
         if ($this->getWhitelistedDir()) {
             $process = new Process([
                 'git',
@@ -101,7 +101,7 @@ class FetchLatest
             $process->run();
             $this->output->writeln($process->getOutput());
 
-            $sparseCheckoutPath = Str::finish(self::CHECKOUT_DIR, DIRECTORY_SEPARATOR). '.git/info/sparse-checkout';
+            $sparseCheckoutPath = Str::finish(self::CHECKOUT_DIR, DIRECTORY_SEPARATOR).'.git/info/sparse-checkout';
             file_put_contents($sparseCheckoutPath, $this->getWhitelistedDir(), FILE_APPEND);
         }
 
@@ -121,13 +121,13 @@ class FetchLatest
 
         // check if dist exists
         if ($this->filesystem->exists(self::CHECKOUT_DIR)) {
-            $this->output->writeln("Directory found, pulling it now !");
+            $this->output->writeln('Directory found, pulling it now !');
             $this->pullUpdates();
-            $this->output->writeln("Pull Done !");
+            $this->output->writeln('Pull Done !');
         } else {
-            $this->output->writeln("Directory not found, clone & fetch !");
+            $this->output->writeln('Directory not found, clone & fetch !');
             $this->cloneAndFetch();
-            $this->output->writeln("Clone & fetch done !");
+            $this->output->writeln('Clone & fetch done !');
         }
     }
 }

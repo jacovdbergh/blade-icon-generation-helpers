@@ -2,11 +2,18 @@
     "name": "codeat3/blade-icon-generation-helpers",
     "description": "codeat3's helper methods to use in blade-icon generation scripts",
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:codeat3/InlineStyle.git"
+        }
+    ],
     "require": {
         "illuminate/support": "^8.0",
         "renatomarinho/laravel-page-speed": "^2.0",
         "symfony/process": "^5.3",
-        "symfony/filesystem": "^5.3"
+        "symfony/filesystem": "^5.3",
+        "codeat3/inlinestyle": "dev-master"
     },
     "require-dev": {
         "codeat3/phpcs-styles": "dev-main"
