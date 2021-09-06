@@ -13,7 +13,7 @@
         "renatomarinho/laravel-page-speed": "^2.0",
         "symfony/process": "^5.3",
         "symfony/filesystem": "^5.3",
-        "codeat3/inlinestyle": "dev-master"
+        "codeat3/inlinestyle": "^1.2"
     },
     "require-dev": {
         "codeat3/phpcs-styles": "dev-main"
