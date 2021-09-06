@@ -5,7 +5,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git@github.com:codeat3/InlineStyle.git"
+            "url": "git@github.com:codeat3/inlinestyle.git"
         }
     ],
     "require": {
