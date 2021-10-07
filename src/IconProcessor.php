@@ -12,6 +12,8 @@ class IconProcessor
 {
     protected $file;
 
+    protected $sourceFile;
+
     protected $filepath;
 
     protected $svgDoc;
@@ -28,8 +30,9 @@ class IconProcessor
         'id',
     ];
 
-    public function __construct($filepath, $config = [])
+    public function __construct($filepath, $config = [], $sourceFile = null)
     {
+        $this->sourceFile = $sourceFile;
         $this->filepath = $filepath;
         $this->file = new \SplFileInfo($filepath);
 
@@ -221,6 +224,7 @@ class IconProcessor
         $htmlDoc = new InlineStyle($this->svgDoc);
         $htmlDoc->applyStylesheet($htmlDoc->extractStylesheets());
         $this->svgDoc = $htmlDoc->getDomObject();
+
         return $this;
     }
 }
