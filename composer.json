@@ -6,10 +6,6 @@
         {
             "type": "git",
             "url": "git@github.com:codeat3/inlinestyle.git"
-        },
-        {
-            "type": "git",
-            "url": "git@github.com:codeat3/laravel-page-speed.git"
         }
     ],
     "require": {
