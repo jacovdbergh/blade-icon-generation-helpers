@@ -16,7 +16,7 @@
         "codeat3/inlinestyle": "^2.0"
     },
     "require-dev": {
-        "codeat3/phpcs-styles": "dev-main"
+        "codeat3/phpcs-styles": "^1.0"
     },
     "autoload": {
         "psr-4": {
