@@ -5,7 +5,7 @@ namespace Codeat3\BladeIconGeneration;
 use DOMDocument;
 use Illuminate\Support\Str;
 use InlineStyle\InlineStyle;
-use RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace;
+use Codeat3\LaravelPageSpeed\Middleware\CollapseWhitespace;
 use Codeat3\BladeIconGeneration\Exceptions\InvalidFileExtensionException;
 
 class IconProcessor
