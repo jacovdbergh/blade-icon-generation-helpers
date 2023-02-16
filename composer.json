@@ -2,13 +2,6 @@
     "name": "codeat3/blade-icon-generation-helpers",
     "description": "codeat3's helper methods to use in blade-icon generation scripts",
     "license": "MIT",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@github.com:codeat3/inlinestyle.git"
-        },
-        { "type": "vcs", "url": "https://github.com/jacovdbergh/laravel-page-speed" }
-    ],
     "require": {
         "illuminate/support": "^8.0|^9.0|^10.0",
         "codeat3/laravel-page-speed": "dev-master",
@@ -16,6 +9,13 @@
         "symfony/filesystem": "^5.0|^6.0",
         "codeat3/inlinestyle": "^2.0"
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:codeat3/inlinestyle.git"
+        },
+        { "type": "vcs", "url": "https://github.com/jacovdbergh/laravel-page-speed" }
+    ],
     "require-dev": {
         "codeat3/phpcs-styles": "^1.0"
     },
