@@ -10,11 +10,11 @@
         "codeat3/inlinestyle": "^2.0"
     },
     "repositories": [
+        { "type": "vcs", "url": "https://github.com/jacovdbergh/laravel-page-speed" },
         {
             "type": "git",
             "url": "git@github.com:codeat3/inlinestyle.git"
-        },
-        { "type": "vcs", "url": "https://github.com/jacovdbergh/laravel-page-speed" }
+        }
     ],
     "require-dev": {
         "codeat3/phpcs-styles": "^1.0"
